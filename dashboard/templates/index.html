@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Café Sales Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <aside class="sidebar">
+
+            <h2>☕ Café Analytics</h2>
+
+            <nav>
+                <a href="#" class="active">📊 Dashboard</a>
+                <a href="#sales">💰 Sales</a>
+                <a href="#products">☕ Products</a>
+                <a href="#payments">💳 Payments</a>
+                <a href="#locations">📍 Locations</a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <p>Sales Analysis</p>
+                <small>Python • Flask • Pandas</small>
+            </div>
+
+        </aside>
+
+
+        <main class="main-content">
+
+            <header class="topbar">
+
+                <div>
+                    <h1>Café Sales Dashboard</h1>
+                    <p>Business performance overview</p>
+                </div>
+
+                <div class="date">
+                    📅 2023 Sales Data
+                </div>
+
+            </header>
+
+
+            <section class="cards">
+
+                <div class="card">
+                    <div class="card-icon">💰</div>
+                    <div>
+                        <p>Total Sales</p>
+                        <h2 id="totalSales">₹0</h2>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">🧾</div>
+                    <div>
+                        <p>Transactions</p>
+                        <h2 id="totalTransactions">0</h2>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📦</div>
+                    <div>
+                        <p>Quantity Sold</p>
+                        <h2 id="totalQuantity">0</h2>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-icon">📈</div>
+                    <div>
+                        <p>Average Transaction</p>
+                        <h2 id="averageTransaction">₹0</h2>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <section class="chart-grid" id="sales">
+
+                <div class="chart-card large">
+                    <div class="chart-header">
+                        <h3>Monthly Sales Trend</h3>
+                        <span>2023</span>
+                    </div>
+
+                    <canvas id="monthlyChart"></canvas>
+                </div>
+
+
+                <div class="chart-card">
+
+                    <div class="chart-header">
+                        <h3>Sales by Item</h3>
+                    </div>
+
+                    <canvas id="itemChart"></canvas>
+
+                </div>
+
+            </section>
+
+
+            <section class="chart-grid" id="payments">
+
+                <div class="chart-card">
+
+                    <div class="chart-header">
+                        <h3>Payment Methods</h3>
+                    </div>
+
+                    <canvas id="paymentChart"></canvas>
+
+                </div>
+
+
+                <div class="chart-card" id="locations">
+
+                    <div class="chart-header">
+                        <h3>Sales by Location</h3>
+                    </div>
+
+                    <canvas id="locationChart"></canvas>
+
+                </div>
+
+            </section>
+
+
+            <footer>
+
+                <p>
+                    Café Sales Analysis Dashboard
+                </p>
+
+                <span>
+                    Built with Python, Pandas, Flask, HTML, CSS & JavaScript
+                </span>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
