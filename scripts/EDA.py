@@ -151,3 +151,12 @@ print("Highest sales location:", location_sales.index[0])
 print("Best sales day:", day_sales.idxmax())
 
 print("\nCharts saved in: reports/charts")
+print("\nInterpretation")
+
+print("Juice has the highest sales among all items.")
+print("Digital Wallet is the most commonly used payment method for sales.")
+print("Takeaway has higher sales than In-store orders.")
+print("Monday has the highest sales among all days.")
+print("The monthly chart shows how cafe sales change over time.")
+print("The quantity vs sales chart shows the relationship between quantity sold and total spending.")
+print("The transaction distribution shows how transaction amounts are spread.")
