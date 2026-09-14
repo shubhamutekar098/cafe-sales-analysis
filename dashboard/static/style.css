@@ -161,6 +161,26 @@ canvas {
     max-height: 280px;
 }
 
+/* Interpretation */
+
+.interpretation {
+    margin-top: 25px;
+}
+
+.interpretation .chart-card {
+    min-height: auto;
+}
+
+.interpretation ul {
+    padding-left: 25px;
+}
+
+.interpretation li {
+    margin-bottom: 12px;
+    color: #555b68;
+    line-height: 1.5;
+}
+
 footer {
     text-align: center;
     margin-top: 35px;

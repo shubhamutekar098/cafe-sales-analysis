@@ -81,7 +81,14 @@ def get_data():
             "values": location_sales["Total Spent"].round(2).tolist()
         }
     })
-
+"interpretation": [
+    "Juice has the highest sales among all items.",
+    "Digital Wallet is the most used payment method.",
+    "Takeaway has higher sales than In-store.",
+    "Monday has the highest sales among all days.",
+    "The monthly chart shows how sales change over time.",
+    "The quantity vs sales chart shows the relationship between quantity sold and total spending."
+]
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

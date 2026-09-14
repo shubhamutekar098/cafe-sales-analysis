@@ -92,12 +92,14 @@
             <section class="chart-grid" id="sales">
 
                 <div class="chart-card large">
+
                     <div class="chart-header">
                         <h3>Monthly Sales Trend</h3>
                         <span>2023</span>
                     </div>
 
                     <canvas id="monthlyChart"></canvas>
+
                 </div>
 
 
@@ -140,6 +142,28 @@
             </section>
 
 
+            <section class="interpretation">
+
+                <div class="chart-card">
+
+                    <div class="chart-header">
+                        <h3>📊 Interpretation</h3>
+                    </div>
+
+                    <ul>
+                        <li>Juice has the highest sales among all items.</li>
+                        <li>Digital Wallet is the most used payment method.</li>
+                        <li>Takeaway has higher sales than In-store.</li>
+                        <li>Monday has the highest sales among all days.</li>
+                        <li>Monthly sales show changes in sales over time.</li>
+                        <li>Quantity sold and total spending show a relationship.</li>
+                    </ul>
+
+                </div>
+
+            </section>
+
+
             <footer>
 
                 <p>
@@ -155,6 +179,7 @@
         </main>
 
     </div>
+
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 
