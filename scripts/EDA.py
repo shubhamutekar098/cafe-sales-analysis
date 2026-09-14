@@ -3,232 +3,151 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-input_file = "data/cleaned_cafe_sales.csv"
-output_folder = "reports/charts"
+df = pd.read_csv("data/cleaned_cafe_sales.csv")
 
-os.makedirs(output_folder, exist_ok=True)
-
-df = pd.read_csv(input_file)
+os.makedirs("reports/charts", exist_ok=True)
 
 df["Transaction Date"] = pd.to_datetime(df["Transaction Date"])
 
 df["Month"] = df["Transaction Date"].dt.to_period("M").astype(str)
 df["Day"] = df["Transaction Date"].dt.day_name()
 
+# Basic information
 total_sales = df["Total Spent"].sum()
 total_transactions = len(df)
 average_transaction = df["Total Spent"].mean()
 total_quantity = df["Quantity"].sum()
 
 print("EDA COMPLETED")
-print("\nTotal Sales:", round(total_sales, 2))
+print("Total Sales:", round(total_sales, 2))
 print("Total Transactions:", total_transactions)
 print("Average Transaction:", round(average_transaction, 2))
 print("Total Quantity Sold:", total_quantity)
 
+# Sales by item
+item_sales = df.groupby("Item")["Total Spent"].sum().sort_values(ascending=False)
 print("\nSales by Item:")
-print(
-    df.groupby("Item")["Total Spent"]
-    .sum()
-    .sort_values(ascending=False)
-)
+print(item_sales)
 
+# Sales by payment method
+payment_sales = df.groupby("Payment Method")["Total Spent"].sum().sort_values(ascending=False)
 print("\nSales by Payment Method:")
-print(
-    df.groupby("Payment Method")["Total Spent"]
-    .sum()
-    .sort_values(ascending=False)
-)
+print(payment_sales)
 
+# Sales by location
+location_sales = df.groupby("Location")["Total Spent"].sum().sort_values(ascending=False)
 print("\nSales by Location:")
-print(
-    df.groupby("Location")["Total Spent"]
-    .sum()
-    .sort_values(ascending=False)
-)
+print(location_sales)
 
-monthly_sales = (
-    df.groupby("Month")["Total Spent"]
-    .sum()
-    .reset_index()
-)
+# Monthly sales
+monthly_sales = df.groupby("Month")["Total Spent"].sum()
 
-plt.figure(figsize=(12, 6))
-sns.lineplot(
-    data=monthly_sales,
-    x="Month",
-    y="Total Spent",
-    marker="o"
-)
+plt.figure(figsize=(10, 5))
+monthly_sales.plot(kind="line", marker="o")
 plt.title("Monthly Sales Trend")
 plt.xlabel("Month")
 plt.ylabel("Total Sales")
 plt.xticks(rotation=45)
 plt.tight_layout()
-plt.savefig(
-    f"{output_folder}/monthly_sales.png",
-    dpi=300
-)
+plt.savefig("reports/charts/monthly_sales.png")
 plt.show()
 
-item_sales = (
-    df.groupby("Item")["Total Spent"]
-    .sum()
-    .sort_values(ascending=False)
-)
-
-plt.figure(figsize=(10, 6))
+# Sales by item chart
+plt.figure(figsize=(10, 5))
 item_sales.plot(kind="bar")
 plt.title("Sales by Item")
 plt.xlabel("Item")
 plt.ylabel("Total Sales")
 plt.xticks(rotation=45)
 plt.tight_layout()
-plt.savefig(
-    f"{output_folder}/sales_by_item.png",
-    dpi=300
-)
+plt.savefig("reports/charts/sales_by_item.png")
 plt.show()
 
-payment_sales = (
-    df.groupby("Payment Method")["Total Spent"]
-    .sum()
-    .sort_values(ascending=False)
-)
-
-plt.figure(figsize=(8, 6))
+# Sales by payment method
+plt.figure(figsize=(8, 5))
 payment_sales.plot(kind="bar")
 plt.title("Sales by Payment Method")
 plt.xlabel("Payment Method")
 plt.ylabel("Total Sales")
 plt.xticks(rotation=30)
 plt.tight_layout()
-plt.savefig(
-    f"{output_folder}/sales_by_payment.png",
-    dpi=300
-)
+plt.savefig("reports/charts/sales_by_payment.png")
 plt.show()
 
-location_sales = (
-    df.groupby("Location")["Total Spent"]
-    .sum()
-    .sort_values(ascending=False)
-)
-
-plt.figure(figsize=(8, 6))
+# Sales by location
+plt.figure(figsize=(8, 5))
 location_sales.plot(kind="bar")
 plt.title("Sales by Location")
 plt.xlabel("Location")
 plt.ylabel("Total Sales")
 plt.xticks(rotation=30)
 plt.tight_layout()
-plt.savefig(
-    f"{output_folder}/sales_by_location.png",
-    dpi=300
-)
+plt.savefig("reports/charts/sales_by_location.png")
 plt.show()
 
-quantity_by_item = (
-    df.groupby("Item")["Quantity"]
-    .sum()
-    .sort_values(ascending=False)
-)
+# Quantity sold by item
+quantity_by_item = df.groupby("Item")["Quantity"].sum().sort_values(ascending=False)
 
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(10, 5))
 quantity_by_item.plot(kind="bar")
 plt.title("Quantity Sold by Item")
 plt.xlabel("Item")
 plt.ylabel("Quantity Sold")
 plt.xticks(rotation=45)
 plt.tight_layout()
-plt.savefig(
-    f"{output_folder}/quantity_by_item.png",
-    dpi=300
-)
+plt.savefig("reports/charts/quantity_by_item.png")
 plt.show()
 
-day_sales = (
-    df.groupby("Day")["Total Spent"]
-    .sum()
-    .reindex([
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday"
-    ])
-)
+# Sales by day
+day_sales = df.groupby("Day")["Total Spent"].sum()
 
-plt.figure(figsize=(10, 6))
+days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+]
+
+day_sales = day_sales.reindex(days)
+
+plt.figure(figsize=(10, 5))
 day_sales.plot(kind="bar")
 plt.title("Sales by Day of Week")
 plt.xlabel("Day")
 plt.ylabel("Total Sales")
 plt.xticks(rotation=30)
 plt.tight_layout()
-plt.savefig(
-    f"{output_folder}/sales_by_day.png",
-    dpi=300
-)
+plt.savefig("reports/charts/sales_by_day.png")
 plt.show()
 
-plt.figure(figsize=(8, 6))
-sns.histplot(
-    df["Total Spent"],
-    bins=30,
-    kde=True
-)
+# Transaction distribution
+plt.figure(figsize=(8, 5))
+sns.histplot(df["Total Spent"], bins=30)
 plt.title("Distribution of Transaction Amount")
 plt.xlabel("Total Spent")
 plt.ylabel("Frequency")
 plt.tight_layout()
-plt.savefig(
-    f"{output_folder}/transaction_distribution.png",
-    dpi=300
-)
+plt.savefig("reports/charts/transaction_distribution.png")
 plt.show()
 
-plt.figure(figsize=(8, 6))
-sns.scatterplot(
-    data=df,
-    x="Quantity",
-    y="Total Spent"
-)
+# Quantity vs sales
+plt.figure(figsize=(8, 5))
+sns.scatterplot(data=df, x="Quantity", y="Total Spent")
 plt.title("Quantity vs Total Spent")
 plt.xlabel("Quantity")
 plt.ylabel("Total Spent")
 plt.tight_layout()
-plt.savefig(
-    f"{output_folder}/quantity_vs_sales.png",
-    dpi=300
-)
+plt.savefig("reports/charts/quantity_vs_sales.png")
 plt.show()
 
+# Key insights
 print("\nKey Insights")
+print("Top selling item:", item_sales.index[0])
+print("Highest sales payment method:", payment_sales.index[0])
+print("Highest sales location:", location_sales.index[0])
+print("Best sales day:", day_sales.idxmax())
 
-print(
-    "\nTop selling item:",
-    item_sales.index[0]
-)
-
-print(
-    "Highest sales payment method:",
-    payment_sales.index[0]
-)
-
-print(
-    "Highest sales location:",
-    location_sales.index[0]
-)
-
-print(
-    "Best sales day:",
-    day_sales.idxmax()
-)
-
-print(
-    "\nCharts saved in:",
-    output_folder
-)
+print("\nCharts saved in: reports/charts")
